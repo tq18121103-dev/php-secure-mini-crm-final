@@ -1,0 +1,12 @@
+{
+    "name": "student/php-secure-mini-crm-final",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "app/Core/helpers.php"
+        ]
+    },
+    "require": {}
+}
