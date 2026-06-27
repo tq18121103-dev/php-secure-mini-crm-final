@@ -26,9 +26,9 @@ class OrderRepository
 
         if ($keyword !== '') {
             $sql .= "
-                WHERE orders.order_code LIKE :keyword
-                   OR leads.full_name LIKE :keyword
-                   OR orders.order_status LIKE :keyword
+                WHERE orders.order_code LIKE :keyword1
+                   OR leads.full_name LIKE :keyword2
+                   OR orders.order_status LIKE :keyword3
             ";
         }
 
@@ -57,15 +57,20 @@ class OrderRepository
         $stmt = $this->pdo->prepare($sql);
 
         if ($keyword !== '') {
-            $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
+            $search = '%' . $keyword . '%';
+        
+            $stmt->bindValue(':keyword1', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword2', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword3', $search, PDO::PARAM_STR);
         }
-
+        
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-
+        
         $stmt->execute();
-
+        
         return $stmt->fetchAll();
+
     }
 
     public function count(string $keyword = ''): int
@@ -78,16 +83,20 @@ class OrderRepository
 
         if ($keyword !== '') {
             $sql .= "
-                WHERE orders.order_code LIKE :keyword
-                   OR leads.full_name LIKE :keyword
-                   OR orders.order_status LIKE :keyword
+                WHERE orders.order_code LIKE :keyword1
+                   OR leads.full_name LIKE :keyword2
+                   OR orders.order_status LIKE :keyword3
             ";
         }
 
         $stmt = $this->pdo->prepare($sql);
 
         if ($keyword !== '') {
-            $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
+            $search = '%' . $keyword . '%';
+        
+            $stmt->bindValue(':keyword1', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword2', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword3', $search, PDO::PARAM_STR);
         }
 
         $stmt->execute();
