@@ -35,6 +35,7 @@ class OrderController
     public function create(): void
     {
         require_login();
+        require_admin();
 
         render('orders/create', [
             'title' => 'Create Order',
@@ -48,6 +49,8 @@ class OrderController
     public function store(): void
     {
         require_login();
+        require_admin();
+
         verify_csrf();
 
         $data = $this->input();
@@ -69,6 +72,7 @@ class OrderController
     public function edit(): void
     {
         require_login();
+        require_admin();
 
         $id = (int) ($_GET['id'] ?? 0);
 
@@ -93,6 +97,8 @@ class OrderController
     public function update(): void
     {
         require_login();
+        require_admin();
+
         verify_csrf();
 
         $id = (int) ($_POST['id'] ?? 0);
@@ -115,6 +121,8 @@ class OrderController
     public function delete(): void
     {
         require_login();
+        require_admin();
+        
         verify_csrf();
 
         $id = (int) ($_POST['id'] ?? 0);

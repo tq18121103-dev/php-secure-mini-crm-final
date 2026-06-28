@@ -98,3 +98,19 @@ function verify_csrf(): void
         exit;
     }
 }
+
+function is_admin(): bool
+{
+    return ($_SESSION['role'] ?? '') === 'admin';
+}
+
+function require_admin(): void
+{
+    if (!is_admin()) {
+        http_response_code(403);
+        render('errors/403', [
+            'title' => '403 Forbidden',
+        ]);
+        exit;
+    }
+}

@@ -35,6 +35,7 @@ class LeadController
     public function create(): void
     {
         require_login();
+        require_admin();
 
         render('leads/create', [
             'title' => 'Create Lead',
@@ -48,6 +49,7 @@ class LeadController
     public function store(): void
     {
         require_login();
+        require_admin();
 
         verify_csrf();
 
@@ -70,6 +72,7 @@ class LeadController
     public function edit(): void
     {
         require_login();
+        require_admin();
 
         $id = (int) ($_GET['id'] ?? 0);
 
@@ -94,6 +97,8 @@ class LeadController
     public function update(): void
     {
         require_login();
+        require_admin();
+
         verify_csrf();
 
         $id = (int) ($_POST['id'] ?? 0);
@@ -116,6 +121,8 @@ class LeadController
     public function delete(): void
     {
         require_login();
+        require_admin();
+        
         verify_csrf();
 
         $id = (int) ($_POST['id'] ?? 0);
