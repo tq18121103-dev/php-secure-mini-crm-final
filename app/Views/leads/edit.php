@@ -7,6 +7,7 @@
 <?php endif; ?>
 
 <form method="post" action="/leads/update" class="card form-card">
+    <?= csrf_field() ?>
     <input type="hidden" name="id" value="<?= e((string) $lead['id']) ?>">
 
     <div>

@@ -5,6 +5,7 @@
 <br><br>
 
 <form method="get" action="/orders" class="search-form">
+    <?= csrf_field() ?>
     <input
         type="text"
         name="keyword"

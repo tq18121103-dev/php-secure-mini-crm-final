@@ -70,7 +70,6 @@ class OrderRepository
         $stmt->execute();
         
         return $stmt->fetchAll();
-
     }
 
     public function count(string $keyword = ''): int
@@ -143,13 +142,22 @@ class OrderRepository
                 'amount' => $data['amount'],
                 'order_status' => $data['order_status'],
             ]);
+
         } catch (PDOException $e) {
-            if ($e->getCode() === '23000') {
+            $mysqlCode = $e->errorInfo[1] ?? null;
+        
+            if ($mysqlCode === 1062) {
                 throw new DuplicateRecordException(
                     'Order code already exists.'
                 );
             }
-
+        
+            if ($mysqlCode === 1452) {
+                throw new DuplicateRecordException(
+                    'Selected lead does not exist.'
+                );
+            }
+        
             throw $e;
         }
     }
@@ -175,12 +183,20 @@ class OrderRepository
                 'order_status' => $data['order_status'],
             ]);
         } catch (PDOException $e) {
-            if ($e->getCode() === '23000') {
+            $mysqlCode = $e->errorInfo[1] ?? null;
+        
+            if ($mysqlCode === 1062) {
                 throw new DuplicateRecordException(
                     'Order code already exists.'
                 );
             }
-
+        
+            if ($mysqlCode === 1452) {
+                throw new DuplicateRecordException(
+                    'Selected lead does not exist.'
+                );
+            }
+        
             throw $e;
         }
     }

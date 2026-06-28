@@ -7,6 +7,7 @@
 <?php endif; ?>
 
 <form method="post" action="/login" class="card form-card">
+    <?= csrf_field() ?>
     <div>
         <label>Username</label>
         <input

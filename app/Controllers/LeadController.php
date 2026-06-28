@@ -49,6 +49,8 @@ class LeadController
     {
         require_login();
 
+        verify_csrf();
+
         $data = $this->input();
 
         $result = $this->service->create($data);
@@ -92,6 +94,7 @@ class LeadController
     public function update(): void
     {
         require_login();
+        verify_csrf();
 
         $id = (int) ($_POST['id'] ?? 0);
         $data = $this->input();
@@ -113,6 +116,7 @@ class LeadController
     public function delete(): void
     {
         require_login();
+        verify_csrf();
 
         $id = (int) ($_POST['id'] ?? 0);
 

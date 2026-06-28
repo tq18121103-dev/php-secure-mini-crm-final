@@ -48,6 +48,7 @@ class OrderController
     public function store(): void
     {
         require_login();
+        verify_csrf();
 
         $data = $this->input();
 
@@ -92,6 +93,7 @@ class OrderController
     public function update(): void
     {
         require_login();
+        verify_csrf();
 
         $id = (int) ($_POST['id'] ?? 0);
         $data = $this->input();
@@ -113,6 +115,7 @@ class OrderController
     public function delete(): void
     {
         require_login();
+        verify_csrf();
 
         $id = (int) ($_POST['id'] ?? 0);
 

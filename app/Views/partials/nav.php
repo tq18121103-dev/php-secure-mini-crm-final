@@ -10,6 +10,7 @@
             <a href="/orders">Orders</a>
 
             <form method="post" action="/logout" style="display:inline;">
+                <?= csrf_field() ?>
                 <button type="submit" class="link-button">Logout</button>
             </form>
         <?php else: ?>

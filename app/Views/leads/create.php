@@ -7,6 +7,7 @@
 <?php endif; ?>
 
 <form method="post" action="/leads" class="card form-card">
+    <?= csrf_field() ?>
     <div>
         <label>Lead Code</label>
         <input

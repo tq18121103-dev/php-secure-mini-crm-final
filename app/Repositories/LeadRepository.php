@@ -25,12 +25,12 @@ class LeadRepository
 
         if ($keyword !== '') {
             $sql .= "
-                WHERE lead_code LIKE :keyword
-                   OR full_name LIKE :keyword
-                   OR email LIKE :keyword
-                   OR phone LIKE :keyword
-                   OR source LIKE :keyword
-                   OR status LIKE :keyword
+                WHERE lead_code LIKE :keyword1
+                   OR full_name LIKE :keyword2
+                   OR email LIKE :keyword3
+                   OR phone LIKE :keyword4
+                   OR source LIKE :keyword5
+                   OR status LIKE :keyword6
             ";
         }
 
@@ -61,7 +61,14 @@ class LeadRepository
         $stmt = $this->pdo->prepare($sql);
 
         if ($keyword !== '') {
-            $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
+            $search = '%' . $keyword . '%';
+
+            $stmt->bindValue(':keyword1', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword2', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword3', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword4', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword5', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword6', $search, PDO::PARAM_STR);
         }
 
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -81,19 +88,26 @@ class LeadRepository
 
         if ($keyword !== '') {
             $sql .= "
-                WHERE lead_code LIKE :keyword
-                   OR full_name LIKE :keyword
-                   OR email LIKE :keyword
-                   OR phone LIKE :keyword
-                   OR source LIKE :keyword
-                   OR status LIKE :keyword
+                WHERE lead_code LIKE :keyword1
+                   OR full_name LIKE :keyword2
+                   OR email LIKE :keyword3
+                   OR phone LIKE :keyword4
+                   OR source LIKE :keyword5
+                   OR status LIKE :keyword6
             ";
         }
 
         $stmt = $this->pdo->prepare($sql);
 
         if ($keyword !== '') {
-            $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
+            $search = '%' . $keyword . '%';
+
+            $stmt->bindValue(':keyword1', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword2', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword3', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword4', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword5', $search, PDO::PARAM_STR);
+            $stmt->bindValue(':keyword6', $search, PDO::PARAM_STR);
         }
 
         $stmt->execute();
@@ -147,7 +161,9 @@ class LeadRepository
                 'status' => $data['status'],
             ]);
         } catch (PDOException $e) {
-            if ($e->getCode() === '23000') {
+            $mysqlCode = $e->errorInfo[1] ?? null;
+
+            if ($mysqlCode === 1062) {
                 throw new DuplicateRecordException(
                     'Lead code or email already exists.'
                 );
@@ -182,7 +198,9 @@ class LeadRepository
                 'status' => $data['status'],
             ]);
         } catch (PDOException $e) {
-            if ($e->getCode() === '23000') {
+            $mysqlCode = $e->errorInfo[1] ?? null;
+
+            if ($mysqlCode === 1062) {
                 throw new DuplicateRecordException(
                     'Lead code or email already exists.'
                 );

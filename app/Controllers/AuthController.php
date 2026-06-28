@@ -30,6 +30,8 @@ class AuthController
 
     public function handleLogin(): void
     {
+        verify_csrf();
+
         $username = trim($_POST['username'] ?? '');
         $password = $_POST['password'] ?? '';
 
@@ -58,6 +60,8 @@ class AuthController
 
     public function logout(): void
     {
+        verify_csrf();
+        
         $_SESSION = [];
 
         if (ini_get('session.use_cookies')) {
